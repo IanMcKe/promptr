@@ -33,7 +33,22 @@
         return $app['twig']->render('index.html.twig', array('topics' => $topics, 'promptrs' => $promptrs));
     });
 
+    //these routs are to add/delete topics on the index page.  A regular user would not see these in a live app
+    $app->post("/add_topic", function() use ($app){
+        $name = $_POST['name'];
+        $topic = new Topic($name);
+        $topic->save();
+        $topics = Topic::getAll();
+        $promptrs = Promptr::getAll();
+        return $app['twig']->render('index.html.twig', array('topics' => $topics, 'promptrs' => $promptrs));
+    });
 
+    $app->post("/delete_topics", function() use ($app){
+        Topic::deleteAll();
+        $topics = Topic::getAll();
+        $promptrs = Promptr::getAll();
+        return $app['twig']->render('index.html.twig', array('topics' => $topics, 'promptrs' => $promptrs));
+    });
 
 
     $app->get("/promptr/{id}", function($id) use ($app){
@@ -76,6 +91,15 @@
         $topic = Topic::find($id);
         $promptrs = $topic->getPromptrs();
         return $app['twig']->render("topic.html.twig", array('topic' => $topic, 'promptrs' => $promptrs));
+    });
+
+    $app->post("/topic/{id}", function($id) use ($app){
+        $topic = Topic::find($id);
+        $name = $_POST['name'];
+        $promptr = new Promptr($name, $topic->getId());
+        $promptr->save();
+        $promptrs = Promptr::getAll();
+        return $app['twig']->render('topic.html.twig', array('topic' => $topic, 'promptrs' => $promptrs));
     });
 
     $app->get("promptr/{id}", function($id) use ($app){

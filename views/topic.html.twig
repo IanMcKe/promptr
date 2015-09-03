@@ -16,15 +16,19 @@
                         <li><a href="/promptr/{{ promptr.getId }}">{{ promptr.getName}}</a></li>
                     {% endfor %}
                 </ul>
+        {# these are the buttons to add/delete promtprs from a topic page #}
+            <div class="btn-group inline pull-left">
+                <form action="/topic/{{ topic.getId }}" method="post">
+                    <input type="text" name="name" placeholder="Title">
+                    <button type="submit" class="btn btn-sm btn-default">Add Promtpr</button>
+                </form>
             </div>
-<div>
-    go to premade id and run
-</div>
-<div id="name">
-    go to route to create and edit a new promptr
-</div>
-            <div class="footer">
-                <a style="text-align: left" href="/">Home</a>
+            <form action="delete_promptrs" method="post">
+                <button type="submit" class="btn btn-sm btn-default">Clear Promptrs</button>
+            </form>
+                <div class="footer">
+                    <a style="text-align: left" href="/">Home</a>
+                </div>
             </div>
         </div>
     </body>

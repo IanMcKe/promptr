@@ -19,6 +19,18 @@
             {% endfor %}
          </ul>
 
+         {# these are buttons to add/delete topics on the index page #}
+         <div class="btn-group inline pull-left">
+             <form action="/add_topic" method="post">
+                 <input type="text" name="name" placeholder="New Topic">
+                 <button type="submit" class="btn btn-sm btn-default">Add Topic</button>
+             </form>
+        </div>
+             <form action="delete_topics" method="post">
+                 <button type="submit" class="btn btn-sm btn-default">Clear Topics</button>
+             </form>
+
+
 
           <h4>Helpful Links</h4>
           <ul>
